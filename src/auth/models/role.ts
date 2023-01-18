@@ -1,0 +1,7 @@
+export enum ROLE {
+  APP_ADMIN,
+  MOSQUE_ADMIN,
+  ORGANISATION_ADMIN,
+  UNIT_ADMIN,
+  USER,
+}
