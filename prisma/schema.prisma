@@ -15,10 +15,75 @@ datasource db {
     relationMode = "prisma"
 }
 
-model Example {
+model Mosque {
+    id            String         @id @default(cuid())
+    name          String
+    organisations Organisation[]
+    createdAt     DateTime       @default(now())
+    updatedAt     DateTime       @updatedAt
+}
+
+model Organisation {
     id        String   @id @default(cuid())
+    name      String
+    members   Member[]
+    units     Unit[]
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
+    Mosque    Mosque?  @relation(fields: [mosqueId], references: [id])
+    mosqueId  String?
+
+    @@index([mosqueId])
+}
+
+model Unit {
+    id             String        @id @default(cuid())
+    name           String
+    categories     Category[]
+    createdAt      DateTime      @default(now())
+    updatedAt      DateTime      @updatedAt
+    Organisation   Organisation? @relation(fields: [organisationId], references: [id])
+    organisationId String?
+
+    @@index([organisationId])
+}
+
+model Category {
+    id        String   @id @default(cuid())
+    name      String
+    color     String
+    events    Event[]
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    Unit      Unit?    @relation(fields: [unitId], references: [id])
+    unitId    String?
+
+    @@index([unitId])
+}
+
+model Event {
+    id         String    @id @default(cuid())
+    name       String
+    attendees  Member[]
+    createdAt  DateTime  @default(now())
+    updatedAt  DateTime  @updatedAt
+    Category   Category? @relation(fields: [categoryId], references: [id])
+    categoryId String?
+
+    @@index([categoryId])
+}
+
+model Member {
+    id             String        @id @default(cuid())
+    firstName      String
+    lastName       String
+    createdAt      DateTime      @default(now())
+    updatedAt      DateTime      @updatedAt
+    Organisation   Organisation? @relation(fields: [organisationId], references: [id])
+    organisationId String?
+    events         Event[]
+
+    @@index([organisationId])
 }
 
 enum Role {
