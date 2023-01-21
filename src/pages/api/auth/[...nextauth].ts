@@ -19,8 +19,9 @@ export const authOptions: NextAuthOptions = {
   },
   // Configure one or more authentication providers
   adapter: PrismaAdapter(prisma),
+  session: { strategy: "jwt" },
   pages: {
-    signIn: "/auth/signin",
+    signIn: "/signin",
   },
   providers: [
     GoogleProvider({
