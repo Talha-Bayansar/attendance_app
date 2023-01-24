@@ -19,7 +19,6 @@ export const authOptions: NextAuthOptions = {
   },
   // Configure one or more authentication providers
   adapter: PrismaAdapter(prisma),
-  session: { strategy: "jwt" },
   pages: {
     signIn: "/signin",
   },
