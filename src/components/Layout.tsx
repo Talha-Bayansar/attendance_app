@@ -1,8 +1,15 @@
 import { useSession } from "next-auth/react";
+import type { ReactNode } from "react";
+import { AppBar } from "./AppBar";
 import { LoadingIndicator } from "./LoadingIndicator";
 import { Unauthenticated } from "./Unauthenticated";
 
-export const Layout = ({ children }) => {
+type Props = {
+  title: string;
+  children: ReactNode;
+};
+
+export const Layout = ({ title, children }: Props) => {
   const { data, status } = useSession();
 
   return (
@@ -12,7 +19,10 @@ export const Layout = ({ children }) => {
       ) : status === "unauthenticated" ? (
         <Unauthenticated />
       ) : (
-        children
+        <>
+          <AppBar>{title}</AppBar>
+          {children}
+        </>
       )}
     </div>
   );
