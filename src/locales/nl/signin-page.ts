@@ -5,4 +5,5 @@ export const signInPage = {
   hadith:
     "Jullie die geloven! Als jullie God helpen dan zal Hij jullie helpen en jullie voeten stevig maken.",
   hadithSource: "Soera Mohammed - Vers-7",
+  emptyText: "Er zijn geen evenementen op de gekozen datum.",
 };

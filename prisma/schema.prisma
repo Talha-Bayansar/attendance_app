@@ -28,6 +28,7 @@ model Organisation {
     name      String
     members   Member[]
     units     Unit[]
+    users     User[]
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
     Mosque    Mosque?  @relation(fields: [mosqueId], references: [id])
@@ -64,6 +65,7 @@ model Category {
 model Event {
     id         String    @id @default(cuid())
     name       String
+    date       DateTime  @default(now())
     attendees  Member[]
     createdAt  DateTime  @default(now())
     updatedAt  DateTime  @updatedAt
@@ -125,14 +127,18 @@ model Session {
 }
 
 model User {
-    id            String    @id @default(cuid())
-    name          String?
-    email         String?   @unique
-    emailVerified DateTime?
-    image         String?
-    role          Role      @default(USER)
-    accounts      Account[]
-    sessions      Session[]
+    id             String        @id @default(cuid())
+    name           String?
+    email          String?       @unique
+    emailVerified  DateTime?
+    image          String?
+    role           Role          @default(USER)
+    accounts       Account[]
+    sessions       Session[]
+    Organisation   Organisation? @relation(fields: [organisationId], references: [id])
+    organisationId String?
+
+    @@index([organisationId])
 }
 
 model VerificationToken {

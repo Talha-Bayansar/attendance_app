@@ -1,14 +1,13 @@
-import React from "react";
-import { eachDayOfInterval, endOfMonth, isToday, isSameDay } from "date-fns";
+import React, { type ReactNode } from "react";
+import { eachDayOfInterval, endOfMonth } from "date-fns";
 import { t } from "@/locales";
 
 type Props = {
-  selectedDay: Date;
   month: Date;
-  onChange: (day: Date) => unknown;
+  children: (day: Date) => ReactNode;
 };
 
-export const Calendar = ({ selectedDay, month, onChange }: Props) => {
+export const Calendar = ({ month, children }: Props) => {
   const daysOfWeek = ["mon", "tue", "wed", "thu", "fri", "sat", "sun"];
 
   const colStartClasses = [
@@ -41,14 +40,9 @@ export const Calendar = ({ selectedDay, month, onChange }: Props) => {
         {days.map((day, index) => (
           <div
             key={`calendar_cell_${index}`}
-            onClick={() => onChange(day)}
-            className={`${colStartClasses[transformDay(day.getDay())]}${
-              isToday(day) ? " bg-secondary bg-opacity-50" : ""
-            }${
-              isSameDay(day, selectedDay) ? " border border-black" : ""
-            } flex h-8 w-8 items-center justify-center rounded-full text-center`}
+            className={`${colStartClasses[transformDay(day.getDay())]}`}
           >
-            {day.getDate()}
+            {children(day)}
           </div>
         ))}
       </div>
