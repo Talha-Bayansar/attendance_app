@@ -2,6 +2,7 @@ import { useSession } from "next-auth/react";
 import type { ReactNode } from "react";
 import { AppBar } from "./AppBar";
 import { LoadingIndicator } from "./LoadingIndicator";
+import { NavBar } from "./NavBar";
 import { Unauthenticated } from "./Unauthenticated";
 
 type Props = {
@@ -22,6 +23,7 @@ export const Layout = ({ title, children }: Props) => {
         <>
           <AppBar className="sticky top-0">{title}</AppBar>
           {children}
+          <NavBar />
         </>
       )}
     </div>
