@@ -1,5 +1,5 @@
 import React from "react";
-import { BounceLoader } from "react-spinners";
+import { PuffLoader } from "react-spinners";
 
 type Props = {
   isFullScreen?: boolean;
@@ -16,7 +16,7 @@ export const LoadingIndicator = ({
   const fullScreenClass = `h-screen ${defaultClass}`;
   return (
     <div className={isFullScreen ? fullScreenClass : defaultClass}>
-      <BounceLoader color="#9DC8A8" />
+      <PuffLoader color="#9DC8A8" />
     </div>
   );
 };

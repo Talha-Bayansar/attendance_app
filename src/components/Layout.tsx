@@ -10,17 +10,17 @@ type Props = {
 };
 
 export const Layout = ({ title, children }: Props) => {
-  const { data, status } = useSession();
+  const { status } = useSession();
 
   return (
-    <div className="flex h-screen w-screen flex-col">
+    <div className="flex min-h-screen w-screen flex-col">
       {status === "loading" ? (
         <LoadingIndicator isFullScreen />
       ) : status === "unauthenticated" ? (
         <Unauthenticated />
       ) : (
         <>
-          <AppBar>{title}</AppBar>
+          <AppBar className="sticky top-0">{title}</AppBar>
           {children}
         </>
       )}
