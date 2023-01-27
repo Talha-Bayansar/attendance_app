@@ -1,9 +1,14 @@
+import { Routes } from "@/utils";
 import { useSession } from "next-auth/react";
+import { useRouter } from "next/router";
 import type { ReactNode } from "react";
 import { AppBar } from "./AppBar";
 import { LoadingIndicator } from "./LoadingIndicator";
 import { NavBar } from "./NavBar";
 import { Unauthenticated } from "./Unauthenticated";
+import { BsFillCalendarDayFill } from "react-icons/bs";
+import { BiCategory } from "react-icons/bi";
+import { IoMdSettings } from "react-icons/io";
 
 type Props = {
   title: string;
@@ -12,6 +17,25 @@ type Props = {
 
 export const Layout = ({ title, children }: Props) => {
   const { status } = useSession();
+  const router = useRouter();
+
+  const navItems = [
+    {
+      icon: <BsFillCalendarDayFill size={24} />,
+      title: "Calendar",
+      path: Routes.ROOT,
+    },
+    {
+      icon: <BiCategory size={24} />,
+      title: "Categories",
+      path: "/categories",
+    },
+    {
+      icon: <IoMdSettings size={24} />,
+      title: "Settings",
+      path: "/settings",
+    },
+  ];
 
   return (
     <div className="flex min-h-screen w-screen flex-col">
@@ -23,7 +47,9 @@ export const Layout = ({ title, children }: Props) => {
         <>
           <AppBar className="sticky top-0">{title}</AppBar>
           {children}
-          <NavBar />
+          <div className="fixed bottom-0 w-full p-4">
+            <NavBar activePath={router.pathname} items={navItems} />
+          </div>
         </>
       )}
     </div>

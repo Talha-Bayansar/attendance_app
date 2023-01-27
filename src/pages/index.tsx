@@ -50,7 +50,7 @@ const Home: NextPage = () => {
         />
         <Calendar month={selectedMonth}>
           {(day) => (
-            <div
+            <button
               onClick={() => handleChange(day)}
               className={`text-gray-400 ${
                 isToday(day) ? " bg-secondary bg-opacity-50" : ""
@@ -59,7 +59,7 @@ const Home: NextPage = () => {
               } flex h-8 w-8 items-center justify-center rounded-full text-center`}
             >
               {day.getDate()}
-            </div>
+            </button>
           )}
         </Calendar>
         {isFetching ? (

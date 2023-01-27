@@ -8,4 +8,19 @@
   html {
     font-family: "Hind", sans-serif;
   }
+
+  @media all and (display-mode: standalone) {
+    * {
+      user-select: none;
+    }
+
+    button,
+    button:hover,
+    button:active,
+    a,
+    a:hover,
+    a:active {
+      touch-action: none;
+    }
+  }
 }
