@@ -10,10 +10,10 @@ import { FcGoogle } from "react-icons/fc";
 
 const SignIn = () => {
   const router = useRouter();
-  // const options = {
-  //   callbackUrl:
-  //     (router.query.callbackUrl as string) ?? process.env.NEXTAUTH_URL,
-  // };
+  const options = {
+    callbackUrl:
+      (router.query.callbackUrl as string) ?? process.env.NEXTAUTH_URL,
+  };
   const headerText = t.signIn.welcome.split("Selam Jongeren");
   return (
     <>
@@ -46,7 +46,7 @@ const SignIn = () => {
         </div>
         <Button
           className="flex w-full items-center justify-center gap-2"
-          onClick={() => signIn("google")}
+          onClick={() => signIn("google", options)}
         >
           {t.signIn.signInWithGoogle} <FcGoogle size={20} />
         </Button>
