@@ -15,7 +15,7 @@ export const Unauthenticated = () => {
       <p className="text-center">
         {textArray[0]}.
         <Link
-          href={`${Routes.SIGN_IN}?callbackUrl=${router.asPath}`}
+          href={`${Routes.SIGN_IN}?callbackUrl=${router.pathname}`}
           className="cursor-pointer text-blue-600"
         >
           {textArray[1]}.
