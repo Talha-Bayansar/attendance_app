@@ -1,5 +1,5 @@
 export const signInPage = {
-  welcome: "Welkom bij Selam Jongeren!",
+  welcome: "Welkom bij Selam Jongeren",
   signInToContinue: "Meld je aan om verder te gaan.",
   signInWithGoogle: "Aanmelden met google",
   hadith:

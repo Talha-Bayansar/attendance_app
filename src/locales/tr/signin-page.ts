@@ -1,5 +1,5 @@
 export const signInPage = {
-  welcome: "Selam Jongeren'e hoş geldiniz!",
+  welcome: "Selam Jongeren'e hoş geldiniz",
   signInToContinue: "Devam etmek için giriş yapınız.",
   signInWithGoogle: "Google ile giriş yapın",
   hadith:

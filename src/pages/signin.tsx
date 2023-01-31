@@ -4,11 +4,16 @@ import { appName } from "@/utils";
 import { signIn } from "next-auth/react";
 import Head from "next/head";
 import Image from "next/image";
+import { useRouter } from "next/router";
 import React from "react";
 import { FcGoogle } from "react-icons/fc";
 
 const SignIn = () => {
-  const options = { callbackUrl: "http://localhost:3000/" };
+  const router = useRouter();
+  const options = {
+    callbackUrl:
+      (router.query.callbackUrl as string) ?? process.env.NEXTAUTH_URL,
+  };
   const headerText = t.signIn.welcome.split("Selam Jongeren");
   return (
     <>
@@ -35,6 +40,7 @@ const SignIn = () => {
                 element
               )
             )}
+            !
           </h1>
           <p>{t.signIn.signInToContinue}</p>
         </div>
