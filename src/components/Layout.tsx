@@ -13,9 +13,10 @@ import { IoMdSettings } from "react-icons/io";
 type Props = {
   title: string;
   children: ReactNode;
+  showNavBar?: boolean;
 };
 
-export const Layout = ({ title, children }: Props) => {
+export const Layout = ({ title, children, showNavBar = true }: Props) => {
   const { status } = useSession();
   const router = useRouter();
 
@@ -28,12 +29,12 @@ export const Layout = ({ title, children }: Props) => {
     {
       icon: <BiCategory size={24} />,
       title: "Categories",
-      path: "/categories",
+      path: Routes.CATEGORIES,
     },
     {
       icon: <IoMdSettings size={24} />,
       title: "Settings",
-      path: "/settings",
+      path: Routes.SETTINGS,
     },
   ];
 
@@ -47,9 +48,11 @@ export const Layout = ({ title, children }: Props) => {
         <>
           <AppBar className="sticky top-0">{title}</AppBar>
           {children}
-          <div className="fixed bottom-0 w-full p-4">
-            <NavBar activePath={router.pathname} items={navItems} />
-          </div>
+          {showNavBar && (
+            <div className="fixed bottom-0 w-full p-4">
+              <NavBar activePath={router.pathname} items={navItems} />
+            </div>
+          )}
         </>
       )}
     </div>

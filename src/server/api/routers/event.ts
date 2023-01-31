@@ -25,6 +25,13 @@ export const eventRouter = createTRPCRouter({
             lte: input.endDate,
           },
         },
+        select: {
+          id: true,
+          name: true,
+          date: true,
+          attendees: true,
+          Category: true,
+        },
       });
     }),
 });
