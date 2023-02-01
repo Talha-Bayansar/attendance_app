@@ -11,8 +11,7 @@ import { FcGoogle } from "react-icons/fc";
 const SignIn = () => {
   const router = useRouter();
   const options = {
-    callbackUrl:
-      (router.query.callbackUrl as string) ?? process.env.NEXTAUTH_URL,
+    callbackUrl: (router.query.callbackUrl as string) ?? "/",
   };
   const headerText = t.signIn.welcome.split("Selam Jongeren");
   return (
