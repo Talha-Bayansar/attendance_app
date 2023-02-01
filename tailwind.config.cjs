@@ -18,6 +18,9 @@ module.exports = {
         body: ["16px", { fontWeight: "400" }],
         small: ["10px", { fontWeight: "400" }],
       },
+      screens: {
+        standalone: { raw: "(display-mode: standalone)" },
+      },
     },
   },
   plugins: [],

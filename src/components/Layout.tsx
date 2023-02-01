@@ -49,7 +49,7 @@ export const Layout = ({ title, children, showNavBar = true }: Props) => {
           <AppBar className="sticky top-0">{title}</AppBar>
           {children}
           {showNavBar && (
-            <div className="fixed bottom-0 w-full p-4">
+            <div className="fixed bottom-0 w-full p-4 standalone:bottom-4">
               <NavBar activePath={router.pathname} items={navItems} />
             </div>
           )}
