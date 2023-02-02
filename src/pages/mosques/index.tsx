@@ -45,7 +45,7 @@ const Mosques = () => {
             {isFetching ? (
               <LoadingIndicator />
             ) : data.length < 1 ? (
-              <EmptyState text={t.mosque.notFound} />
+              <EmptyState text={t.mosque.noMosquesFound} />
             ) : (
               data.map((mosque) => (
                 <Link

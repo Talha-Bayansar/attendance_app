@@ -1,5 +1,6 @@
 export const mosque = {
   title: "Moskeeën",
   search: "Zoeken",
-  notFound: "Er zijn geen moskeeën gevonden.",
+  noMosquesFound: "Er zijn geen moskeeën gevonden.",
+  noOrganisationsFound: "Er zijn geen organisaties gevonden.",
 };

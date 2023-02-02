@@ -1,5 +1,6 @@
 export const mosque = {
   title: "Camiler",
   search: "Ara",
-  notFound: "Hiç cami bulunamamıştır.",
+  noMosquesFound: "Hiç cami bulunamamıştır.",
+  noOrganisationsFound: "Herhangi bir organizasyon bulunamamıştır.",
 };
