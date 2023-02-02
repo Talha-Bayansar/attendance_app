@@ -1,3 +1,4 @@
+import withPWA from "next-pwa";
 // @ts-check
 /**
  * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation.
@@ -13,5 +14,10 @@ const config = {
     locales: ["tr", "nl"],
     defaultLocale: "tr",
   },
+  pwa: {
+    dest: "public",
+    register: true,
+    skipWaiting: true,
+  },
 };
-export default config;
+export default withPWA(config);
