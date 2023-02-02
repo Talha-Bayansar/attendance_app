@@ -25,6 +25,10 @@ export async function getServerSideProps({ req, res }) {
         destination = Routes.WAITING_ROOM;
         break;
 
+      case Role.APP_ADMIN:
+        destination = Routes.MOSQUES;
+        break;
+
       case Role.MOSQUE_ADMIN:
         destination = Routes.ORGANISATIONS;
         break;

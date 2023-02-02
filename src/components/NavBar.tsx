@@ -3,12 +3,12 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 
 type Props = {
-  items: Item[];
+  items: NavItem[];
   activePath: string;
   className?: string;
 };
 
-type Item = {
+export type NavItem = {
   icon: ReactNode;
   path: string;
   title: string;

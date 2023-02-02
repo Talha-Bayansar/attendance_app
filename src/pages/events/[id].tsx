@@ -6,11 +6,7 @@ const EventDetailsPage = () => {
   const router = useRouter();
   const { id, title } = router.query;
 
-  return (
-    <Layout title={title as string} showNavBar={false}>
-      Event ID: {id}
-    </Layout>
-  );
+  return <Layout title={title as string}>Event ID: {id}</Layout>;
 };
 
 export default EventDetailsPage;
