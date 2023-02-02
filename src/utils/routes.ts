@@ -4,4 +4,8 @@ export enum Routes {
   CATEGORIES = "/categories",
   SETTINGS = "/settings",
   EVENTS = "/events",
+  WAITING_ROOM = "/waiting-room",
+  MOSQUES = "/mosques",
+  ORGANISATIONS = "/organisations",
+  UNITS = "/units",
 }

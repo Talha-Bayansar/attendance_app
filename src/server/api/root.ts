@@ -1,5 +1,5 @@
 import { createTRPCRouter } from "./trpc";
-import { eventRouter } from "./routers/event";
+import { eventRouter } from "./routers";
 
 /**
  * This is the primary router for your server.

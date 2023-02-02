@@ -3,6 +3,8 @@ export const common = {
   homePage: "Startpagina",
   unauthenticatedErrorMessage:
     "Oeps, het lijkt erop dat je niet aangemeld bent. Klik hier om aan te melden.",
+  unauthorisedErrorMessage:
+    "Oeps, het lijkt erop dat je geen toegang hebt tot deze pagina. Klik hier om naar de wachtruimte te gaan.",
   days: {
     mon: "Ma",
     tue: "Di",

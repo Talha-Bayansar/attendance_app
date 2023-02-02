@@ -5,31 +5,17 @@ import { PrismaAdapter } from "@next-auth/prisma-adapter";
 
 import { env } from "../../../env/server.mjs";
 import { prisma } from "../../../server/db";
-import type { Role } from "@prisma/client";
-
-type CustomSession = {
-  expires: string;
-  user?: {
-    id: string;
-    name?: string;
-    email?: string;
-    image?: string;
-    role?: Role;
-    organisationId?: string;
-  };
-};
 
 export const authOptions: NextAuthOptions = {
   // Include user.id on session
   callbacks: {
     session({ session, user }) {
-      const customSession: CustomSession = session;
-      if (customSession.user) {
-        customSession.user.id = user.id;
-        customSession.user.role = user["role"];
-        customSession.user.organisationId = user["organisationId"];
+      if (session.user) {
+        session.user.id = user.id;
+        session.user.role = user["role"];
+        session.user.organisationId = user["organisationId"];
       }
-      return customSession;
+      return session;
     },
   },
   // Configure one or more authentication providers

@@ -18,6 +18,7 @@ datasource db {
 model Mosque {
     id            String         @id @default(cuid())
     name          String
+    admins        User[]
     organisations Organisation[]
     createdAt     DateTime       @default(now())
     updatedAt     DateTime       @updatedAt
@@ -28,7 +29,7 @@ model Organisation {
     name      String
     members   Member[]
     units     Unit[]
-    users     User[]
+    admins    User[]
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
     Mosque    Mosque?  @relation(fields: [mosqueId], references: [id])
@@ -41,6 +42,7 @@ model Unit {
     id             String        @id @default(cuid())
     name           String
     categories     Category[]
+    admins         User[]
     createdAt      DateTime      @default(now())
     updatedAt      DateTime      @updatedAt
     Organisation   Organisation? @relation(fields: [organisationId], references: [id])
@@ -137,8 +139,12 @@ model User {
     sessions       Session[]
     Organisation   Organisation? @relation(fields: [organisationId], references: [id])
     organisationId String?
+    Units          Unit[]
+    Mosque         Mosque?       @relation(fields: [mosqueId], references: [id])
+    mosqueId       String?
 
     @@index([organisationId])
+    @@index([mosqueId])
 }
 
 model VerificationToken {

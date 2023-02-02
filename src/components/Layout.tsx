@@ -9,16 +9,27 @@ import { Unauthenticated } from "./Unauthenticated";
 import { BsFillCalendarDayFill } from "react-icons/bs";
 import { BiCategory } from "react-icons/bi";
 import { IoMdSettings } from "react-icons/io";
+import { type Actions, hasPermission } from "@/auth";
+import Unauthorized from "./Unauthorized";
 
 type Props = {
-  title: string;
+  title?: string;
   children: ReactNode;
   showNavBar?: boolean;
+  showAppBar?: boolean;
+  requiredActions?: Actions[];
 };
 
-export const Layout = ({ title, children, showNavBar = true }: Props) => {
-  const { status } = useSession();
+export const Layout = ({
+  title,
+  children,
+  showNavBar = true,
+  showAppBar = true,
+  requiredActions = [],
+}: Props) => {
+  const { data, status } = useSession();
   const router = useRouter();
+  const user = data?.user;
 
   const navItems = [
     {
@@ -44,9 +55,12 @@ export const Layout = ({ title, children, showNavBar = true }: Props) => {
         <LoadingIndicator isFullScreen />
       ) : status === "unauthenticated" ? (
         <Unauthenticated />
+      ) : requiredActions.length > 0 &&
+        !requiredActions.every((action) => hasPermission(user, action)) ? (
+        <Unauthorized />
       ) : (
         <>
-          <AppBar className="sticky top-0">{title}</AppBar>
+          {showAppBar && <AppBar className="sticky top-0">{title}</AppBar>}
           {children}
           {showNavBar && (
             <div className="fixed bottom-0 w-full p-4 standalone:bottom-4">

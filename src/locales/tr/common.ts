@@ -3,6 +3,8 @@ export const common = {
   homePage: "Giriş",
   unauthenticatedErrorMessage:
     "Görünüşe göre kimliğiniz doğrulanmadı. Oturum açmak için buraya tıklayın.",
+  unauthorisedErrorMessage:
+    "Görünüşe göre bu sayfaya erişemiyorsunuz. Bekleme alanına gitmek için buraya tıklayın.",
   days: {
     mon: "Pzt",
     tue: "Sal",

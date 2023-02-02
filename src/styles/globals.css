@@ -13,11 +13,14 @@
     button,
     button:hover,
     button:active,
+    button:focus,
     a,
     a:hover,
-    a:active {
+    a:active,
+    a:focus {
       touch-action: none;
       user-select: none;
+      -webkit-tap-highlight-color: transparent;
     }
   }
 }
