@@ -16,10 +16,11 @@ const Home: NextPage = () => {
 };
 
 export async function getServerSideProps({ req, res }) {
-  const { user } = await unstable_getServerSession(req, res, authOptions);
+  const session = await unstable_getServerSession(req, res, authOptions);
   let destination = Routes.SIGN_IN;
 
-  if (user) {
+  if (session && session.user) {
+    const user = session.user;
     switch (user.role) {
       case Role.USER:
         destination = Routes.WAITING_ROOM;
