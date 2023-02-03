@@ -14,6 +14,8 @@ type Props = {
   navItems?: NavItem[];
   showAppBar?: boolean;
   requiredActions?: Actions[];
+  hasActionButton?: boolean;
+  onClickActionButton?: React.MouseEventHandler<HTMLButtonElement>;
 };
 
 export const Layout = ({
@@ -22,6 +24,8 @@ export const Layout = ({
   navItems,
   showAppBar = true,
   requiredActions = [],
+  hasActionButton,
+  onClickActionButton,
 }: Props) => {
   const { data, status } = useSession();
   const router = useRouter();
@@ -38,7 +42,15 @@ export const Layout = ({
         <Unauthorized />
       ) : (
         <>
-          {showAppBar && <AppBar className="sticky top-0">{title}</AppBar>}
+          {showAppBar && (
+            <AppBar
+              hasActionButton={hasActionButton}
+              onClickActionButton={onClickActionButton}
+              className="sticky top-0"
+            >
+              {title}
+            </AppBar>
+          )}
           {children}
           {navItems && (
             <div className="fixed bottom-0 w-full p-4 standalone:bottom-4">

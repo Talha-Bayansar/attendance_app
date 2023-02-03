@@ -11,6 +11,11 @@ type Props = {
   onChange?: React.ChangeEventHandler<HTMLInputElement>;
   onFocus?: React.FocusEventHandler<HTMLInputElement>;
   onBlur?: React.FocusEventHandler<HTMLInputElement>;
+  ref?: React.LegacyRef<HTMLInputElement>;
+  inputProps?: React.DetailedHTMLProps<
+    React.InputHTMLAttributes<HTMLInputElement>,
+    HTMLInputElement
+  >;
 };
 
 export const InputField = ({
@@ -24,27 +29,29 @@ export const InputField = ({
   onChange,
   onFocus,
   onBlur,
+  ref,
+  inputProps,
 }: Props) => {
   const [active, setActive] = useState(false);
 
   const handleFocus = (e: React.FocusEvent<HTMLInputElement, Element>) => {
-    const target = e.target;
-    setActive(true);
-    target.setAttribute("placeholder", target.getAttribute("data-placeholder"));
     if (onFocus) {
       onFocus(e);
     }
+    const target = e.target;
+    setActive(true);
+    target.setAttribute("placeholder", target.getAttribute("data-placeholder"));
   };
 
   const handleBlur = (e: React.FocusEvent<HTMLInputElement, Element>) => {
+    if (onBlur) {
+      onBlur(e);
+    }
     const target = e.target;
     if (!target.value) {
       setActive(false);
     }
     target.removeAttribute("placeholder");
-    if (onBlur) {
-      onBlur(e);
-    }
   };
 
   return (
@@ -64,11 +71,13 @@ export const InputField = ({
       </label>
       <input
         id={`${id}_${label}`}
+        ref={ref}
         onFocus={handleFocus}
         onBlur={handleBlur}
         name={name}
         type={type}
         value={value}
+        {...inputProps}
         onChange={onChange}
         data-placeholder={placeholder}
         className="w-full outline-none"

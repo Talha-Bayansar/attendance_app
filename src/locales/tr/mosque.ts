@@ -3,4 +3,5 @@ export const mosque = {
   search: "Ara",
   noMosquesFound: "Hiç cami bulunamamıştır.",
   noOrganisationsFound: "Herhangi bir organizasyon bulunamamıştır.",
+  newMosque: "Yeni cami",
 };

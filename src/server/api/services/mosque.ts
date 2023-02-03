@@ -59,3 +59,25 @@ export const getOneMosque = protectedProcedure
       });
     }
   });
+
+export const createMosque = protectedProcedure
+  .input(
+    z.object({
+      name: z.string().min(1),
+    })
+  )
+  .mutation(({ ctx, input }) => {
+    const { user } = ctx.session;
+    if (hasPermission(user, Actions.MOSQUE_CREATE)) {
+      return ctx.prisma.mosque.create({
+        data: {
+          name: input.name,
+        },
+      });
+    } else {
+      throw new TRPCError({
+        code: "UNAUTHORIZED",
+        message: "User has no permission.",
+      });
+    }
+  });

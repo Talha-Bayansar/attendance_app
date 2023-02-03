@@ -6,6 +6,7 @@ type Props = {
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
   disabled?: boolean;
   children: ReactNode;
+  type?: "button" | "reset" | "submit";
 };
 
 export const Button: React.FC<Props> = ({
@@ -13,6 +14,7 @@ export const Button: React.FC<Props> = ({
   children,
   onClick,
   disabled = false,
+  type,
 }: Props) => {
   return (
     <motion.button
@@ -22,6 +24,7 @@ export const Button: React.FC<Props> = ({
       }`}
       onClick={onClick}
       disabled={disabled}
+      type={type}
     >
       {children}
     </motion.button>
