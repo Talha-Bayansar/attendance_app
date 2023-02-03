@@ -49,7 +49,10 @@ const CreateMosque = () => {
               inputProps={{ required: true, autoComplete: "off" }}
             />
           </div>
-          <Button className="flex justify-center" disabled={mutation.isLoading}>
+          <Button
+            className="mb-4 flex justify-center"
+            disabled={mutation.isLoading}
+          >
             {mutation.isLoading ? (
               <PuffLoader size={24} color="white" />
             ) : (
