@@ -1,4 +1,5 @@
-import React, { type ReactNode, useState } from "react";
+import React, { type ReactNode } from "react";
+import { motion } from "framer-motion";
 
 type Props = {
   className?: string;
@@ -15,24 +16,17 @@ export const Button: React.FC<Props> = ({
   disabled = false,
   type,
 }: Props) => {
-  const [isTouching, setIsTouching] = useState<boolean>(false);
-
   return (
-    <button
-      onTouchStart={() => setIsTouching(true)}
-      onTouchEnd={() => setIsTouching(false)}
-      className={`w-full rounded-lg bg-secondary p-4 text-white shadow-small transition-all ${
+    <motion.button
+      whileTap={{ scale: 0.98, boxShadow: "none" }}
+      className={`w-full rounded-lg bg-secondary p-4 text-white shadow-small ${
         className || ""
       }`}
       onClick={onClick}
       disabled={disabled}
       type={type}
-      style={{
-        transform: isTouching ? "scale(0.98)" : "scale(1)",
-        boxShadow: isTouching && "none",
-      }}
     >
       {children}
-    </button>
+    </motion.button>
   );
 };

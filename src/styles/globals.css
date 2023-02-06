@@ -24,7 +24,6 @@
     a:hover,
     a:active,
     a:focus {
-      touch-action: none;
       user-select: none;
       -webkit-tap-highlight-color: transparent;
     }
