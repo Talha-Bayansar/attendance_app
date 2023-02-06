@@ -81,3 +81,25 @@ export const createMosque = protectedProcedure
       });
     }
   });
+
+export const deleteMosque = protectedProcedure
+  .input(
+    z.object({
+      id: z.string(),
+    })
+  )
+  .mutation(({ ctx, input }) => {
+    const { user } = ctx.session;
+    if (hasPermission(user, Actions.MOSQUE_DELETE)) {
+      return ctx.prisma.mosque.delete({
+        where: {
+          id: input.id,
+        },
+      });
+    } else {
+      throw new TRPCError({
+        code: "UNAUTHORIZED",
+        message: "User has no permission.",
+      });
+    }
+  });

@@ -9,6 +9,12 @@
     font-family: "Hind", sans-serif;
   }
 
+  .overflow-visible-custom {
+    overflow: visible !important;
+    overflow-y: visible !important;
+    overflow-x: visible !important;
+  }
+
   @media all and (display-mode: standalone) {
     button,
     button:hover,

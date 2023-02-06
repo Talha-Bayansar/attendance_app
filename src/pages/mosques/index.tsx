@@ -1,4 +1,10 @@
-import { EmptyState, InputField, Layout, LoadingIndicator } from "@/components";
+import {
+  DismissibleList,
+  EmptyState,
+  InputField,
+  Layout,
+  LoadingIndicator,
+} from "@/components";
 import { MosqueItem } from "@/mosques";
 import { api, appName, Routes } from "@/utils";
 import Head from "next/head";
@@ -21,10 +27,25 @@ const Mosques = () => {
     },
   });
 
+  const queryContext = api.useContext();
+
   const { data, isFetching } = api.mosque.getAllMosques.useQuery({
     take: 10,
     query: searchQuery,
   });
+
+  const mutation = api.mosque.deleteMosque.useMutation();
+
+  const handleRemove = (id: string) => {
+    mutation.mutate({ id: id });
+    queryContext.mosque.getAllMosques.setData(
+      {
+        take: 10,
+        query: searchQuery,
+      },
+      (oldData) => oldData.filter((mosque) => mosque.id !== id)
+    );
+  };
 
   return (
     <>
@@ -48,20 +69,22 @@ const Mosques = () => {
               onChange={handleChange}
             />
           </form>
-          <div className="flex flex-grow flex-col gap-4">
+          <div className="flex-grow">
             {isFetching ? (
               <LoadingIndicator />
             ) : data.length < 1 ? (
               <EmptyState text={t.mosque.noMosquesFound} />
             ) : (
-              data.map((mosque) => (
-                <Link
-                  key={mosque.id}
-                  href={`${Routes.MOSQUES}/${mosque.id}?title=${mosque.name}`}
-                >
-                  <MosqueItem mosque={mosque} />
-                </Link>
-              ))
+              <DismissibleList data={data} onRemove={handleRemove}>
+                {(mosque) => (
+                  <Link
+                    className="w-full"
+                    href={`${Routes.MOSQUES}/${mosque.id}?title=${mosque.name}`}
+                  >
+                    <MosqueItem mosque={mosque} />
+                  </Link>
+                )}
+              </DismissibleList>
             )}
           </div>
         </main>
