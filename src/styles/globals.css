@@ -27,5 +27,9 @@
       user-select: none;
       -webkit-tap-highlight-color: transparent;
     }
+
+    a {
+      -webkit-touch-callout: none;
+    }
   }
 }
