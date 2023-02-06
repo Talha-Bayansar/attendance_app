@@ -1,11 +1,11 @@
 import {
+  Button,
   DismissibleList,
   EmptyState,
   InputField,
   Layout,
   LoadingIndicator,
 } from "@/components";
-import { MosqueItem } from "@/mosques";
 import { api, appName, Routes } from "@/utils";
 import Head from "next/head";
 import React, { useState } from "react";
@@ -81,7 +81,9 @@ const Mosques = () => {
                     className="w-full"
                     href={`${Routes.MOSQUES}/${mosque.id}?title=${mosque.name}`}
                   >
-                    <MosqueItem mosque={mosque} />
+                    <Button className="text-left text-header2">
+                      {mosque.name}
+                    </Button>
                   </Link>
                 )}
               </DismissibleList>

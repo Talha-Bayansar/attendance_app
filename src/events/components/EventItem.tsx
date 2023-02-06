@@ -18,6 +18,8 @@ export const EventItem = ({
 }: Props) => {
   const { rgb } = JSON.parse(event.Category?.color);
 
+  //TODO: Replace motion component with Button
+
   return (
     <motion.div
       whileTap={{ scale: 0.98 }}

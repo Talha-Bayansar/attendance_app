@@ -1,7 +1,6 @@
 import { Actions } from "@/auth";
-import { EmptyState, Layout, LoadingIndicator } from "@/components";
+import { Button, EmptyState, Layout, LoadingIndicator } from "@/components";
 import { t } from "@/locales";
-import { OrganisationItem } from "@/organisations";
 import { api, appName, Routes } from "@/utils";
 import Head from "next/head";
 import Link from "next/link";
@@ -34,7 +33,9 @@ const MosqueDetails = () => {
                 key={organisation.id}
                 href={`${Routes.ORGANISATIONS}/${organisation.id}?title=${organisation.name}`}
               >
-                <OrganisationItem organisation={organisation} />
+                <Button className="text-left text-header2">
+                  {organisation.name}
+                </Button>
               </Link>
             ))
           )}
