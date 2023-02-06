@@ -29,7 +29,7 @@ export const DismissibleList = <T extends Item>({
         <SwipeableListItem
           key={item.id}
           trailingActions={<RemoveAction onRemove={() => onRemove(item.id)} />}
-          className="overflow-visible"
+          className="overflow-visible-custom"
         >
           {children(item)}
         </SwipeableListItem>

@@ -11,7 +11,7 @@ export const RemoveAction = ({ onRemove }: Props) => {
   return (
     <TrailingActions>
       <SwipeAction destructive={true} onClick={onRemove}>
-        <div className="grid place-items-center bg-red-600 px-4 text-white">
+        <div className="grid place-items-center rounded-l-lg bg-red-600 px-4 text-white">
           <MdDelete size={24} />
         </div>
       </SwipeAction>
