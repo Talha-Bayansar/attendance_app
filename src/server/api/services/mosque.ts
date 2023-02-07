@@ -83,6 +83,44 @@ export const createMosque = protectedProcedure
     }
   });
 
+export const updateMosque = protectedProcedure
+  .input(
+    z.object({
+      id: z.string(),
+      name: z.string().min(1),
+      admins: z.string().array(),
+    })
+  )
+  .mutation(async ({ ctx, input }) => {
+    const { user } = ctx.session;
+    if (hasPermission(user, Actions.MOSQUE_UPDATE)) {
+      const admins = await ctx.prisma.user.findMany({
+        where: {
+          id: {
+            in: input.admins,
+          },
+        },
+      });
+
+      return ctx.prisma.mosque.update({
+        where: {
+          id: input.id,
+        },
+        data: {
+          name: input.name,
+          admins: {
+            set: admins,
+          },
+        },
+      });
+    } else {
+      throw new TRPCError({
+        code: "UNAUTHORIZED",
+        message: "User has no permission.",
+      });
+    }
+  });
+
 export const deleteMosque = protectedProcedure
   .input(
     z.object({

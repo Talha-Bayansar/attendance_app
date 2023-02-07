@@ -1,5 +1,6 @@
 import {
   createMosque,
+  updateMosque,
   deleteMosque,
   getAllMosques,
   getOneMosque,
@@ -10,5 +11,6 @@ export const mosqueRouter = createTRPCRouter({
   getAllMosques: getAllMosques,
   getOneMosque: getOneMosque,
   createMosque: createMosque,
+  updateMosque: updateMosque,
   deleteMosque: deleteMosque,
 });

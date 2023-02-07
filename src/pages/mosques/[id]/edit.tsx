@@ -1,7 +1,7 @@
 import { Actions } from "@/auth";
 import { Button, InputField, Layout, LoadingIndicator } from "@/components";
 import { t } from "@/locales";
-import { api, appName } from "@/utils";
+import { api, appName, Routes } from "@/utils";
 import { useFormik } from "formik";
 import Head from "next/head";
 import { useRouter } from "next/router";
@@ -16,22 +16,27 @@ const EditMosque = () => {
     id: id as string,
   });
 
+  const mutation = api.mosque.updateMosque.useMutation();
+
   const { values, handleChange, handleSubmit } = useFormik({
     initialValues: {
       name: data?.name ?? "",
-      admins: data?.admins ?? "",
+      admins: data?.admins ?? [],
     },
     enableReinitialize: true,
     onSubmit: (values) => {
-      console.log(values);
-      // mutation.mutate(
-      //   { name: values.name },
-      //   {
-      //     onSuccess() {
-      //       router.push(Routes.MOSQUES);
-      //     },
-      //   }
-      // );
+      mutation.mutate(
+        {
+          id: id as string,
+          name: values.name,
+          admins: values.admins.map((admin) => admin.id),
+        },
+        {
+          onSuccess() {
+            router.push(`${Routes.MOSQUES}/${id}`);
+          },
+        }
+      );
     },
   });
 
@@ -66,14 +71,13 @@ const EditMosque = () => {
             </div>
             <Button
               className="mb-4 flex justify-center"
-              // disabled={mutation.isLoading}
+              disabled={mutation.isLoading}
             >
-              {/* {mutation.isLoading ? (
+              {mutation.isLoading ? (
                 <PuffLoader size={24} color="white" />
               ) : (
                 t.common.edit
-              )} */}
-              {t.common.edit}
+              )}
             </Button>
           </form>
         )}
