@@ -14,6 +14,7 @@ import Link from "next/link";
 import { Actions } from "@/auth";
 import { t } from "@/locales";
 import { useRouter } from "next/router";
+import { MdAdd } from "react-icons/md";
 
 const Mosques = () => {
   const router = useRouter();
@@ -56,7 +57,7 @@ const Mosques = () => {
       <Layout
         title={t.mosque.title}
         requiredActions={[Actions.MOSQUE_READ]}
-        hasActionButton
+        actionButtonIcon={<MdAdd size={24} />}
         onClickActionButton={() => router.push(`${Routes.MOSQUES}/create`)}
       >
         <main className="flex flex-grow flex-col gap-8 p-4">

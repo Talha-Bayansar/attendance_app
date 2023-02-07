@@ -1,19 +1,18 @@
 import React, { type ReactNode } from "react";
-import { MdAdd } from "react-icons/md";
 import { motion } from "framer-motion";
 import { colors } from "@/utils";
 
 type Props = {
   children: ReactNode;
   className?: string;
-  hasActionButton?: boolean;
+  actionButtonIcon?: ReactNode;
   onClickActionButton?: React.MouseEventHandler<HTMLButtonElement>;
 };
 
 export const AppBar = ({
   className,
   children,
-  hasActionButton = false,
+  actionButtonIcon,
   onClickActionButton,
 }: Props) => {
   return (
@@ -23,15 +22,15 @@ export const AppBar = ({
       }`}
     >
       <span className="text-center text-header2 text-white">{children}</span>
-      {hasActionButton && (
+      {actionButtonIcon && (
         <motion.button
           whileTap={{
             backgroundColor: colors.secondary,
           }}
           onClick={onClickActionButton}
-          className="absolute right-4 rounded-full text-white hover:bg-secondary"
+          className="absolute right-4 rounded-full p-1 text-white hover:bg-secondary"
         >
-          <MdAdd size={32} />
+          {actionButtonIcon}
         </motion.button>
       )}
     </header>

@@ -3,7 +3,7 @@ import { Layout, LoadingIndicator, EmptyState } from "@/components";
 import { MonthSwitcher, Calendar } from "@/events";
 import { EventItem } from "@/events/components/EventItem";
 import { t } from "@/locales";
-import { api, appName, Routes, unitNavItems } from "@/utils";
+import { api, appName, Routes } from "@/utils";
 import {
   startOfToday,
   startOfMonth,
@@ -69,7 +69,7 @@ const Events = () => {
       <Layout
         title={t.signIn.title}
         requiredActions={[Actions.EVENT_READ]}
-        navItems={unitNavItems}
+        hasNavBar
       >
         <main className="flex flex-grow flex-col gap-8 p-4">
           <MonthSwitcher

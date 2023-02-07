@@ -22,5 +22,6 @@ export const common = {
     sunday: "Pazar",
   },
   create: "Oluştur",
+  edit: "Düzenle",
   name: "İsim",
 };

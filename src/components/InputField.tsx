@@ -7,6 +7,7 @@ type Props = {
   type?: React.HTMLInputTypeAttribute;
   className?: string;
   value?: any;
+  isActive?: boolean;
   name: string;
   onChange?: React.ChangeEventHandler<HTMLInputElement>;
   onFocus?: React.FocusEventHandler<HTMLInputElement>;
@@ -25,6 +26,7 @@ export const InputField = ({
   type = "text",
   className,
   value,
+  isActive,
   name,
   onChange,
   onFocus,
@@ -32,7 +34,7 @@ export const InputField = ({
   ref,
   inputProps,
 }: Props) => {
-  const [active, setActive] = useState(false);
+  const [active, setActive] = useState(value || isActive ? true : false);
 
   const handleFocus = (e: React.FocusEvent<HTMLInputElement, Element>) => {
     if (onFocus) {

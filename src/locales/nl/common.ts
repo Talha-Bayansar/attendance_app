@@ -22,5 +22,6 @@ export const common = {
     sunday: "Zondag",
   },
   create: "Aanmaken",
+  edit: "Bewerken",
   name: "Naam",
 };

@@ -4,4 +4,5 @@ export const mosque = {
   noMosquesFound: "Hiç cami bulunamamıştır.",
   noOrganisationsFound: "Herhangi bir organizasyon bulunamamıştır.",
   newMosque: "Yeni cami",
+  editMosque: "Cami düzenleme",
 };

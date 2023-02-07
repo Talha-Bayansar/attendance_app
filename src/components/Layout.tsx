@@ -3,28 +3,29 @@ import { useRouter } from "next/router";
 import type { ReactNode } from "react";
 import { AppBar } from "./AppBar";
 import { LoadingIndicator } from "./LoadingIndicator";
-import { NavBar, type NavItem } from "./NavBar";
+import { NavBar } from "./NavBar";
 import { Unauthenticated } from "./Unauthenticated";
 import { type Actions, hasPermission } from "@/auth";
 import Unauthorized from "./Unauthorized";
+import { getNavItems } from "@/utils";
 
 type Props = {
   title?: string;
   children: ReactNode;
-  navItems?: NavItem[];
+  hasNavBar?: boolean;
   showAppBar?: boolean;
   requiredActions?: Actions[];
-  hasActionButton?: boolean;
+  actionButtonIcon?: ReactNode;
   onClickActionButton?: React.MouseEventHandler<HTMLButtonElement>;
 };
 
 export const Layout = ({
   title,
   children,
-  navItems,
+  hasNavBar = false,
   showAppBar = true,
   requiredActions = [],
-  hasActionButton,
+  actionButtonIcon,
   onClickActionButton,
 }: Props) => {
   const { data, status } = useSession();
@@ -44,7 +45,7 @@ export const Layout = ({
         <>
           {showAppBar && (
             <AppBar
-              hasActionButton={hasActionButton}
+              actionButtonIcon={actionButtonIcon}
               onClickActionButton={onClickActionButton}
               className="sticky top-0"
             >
@@ -52,9 +53,12 @@ export const Layout = ({
             </AppBar>
           )}
           {children}
-          {navItems && (
+          {hasNavBar && (
             <div className="fixed bottom-0 w-full p-4 standalone:bottom-4">
-              <NavBar activePath={router.pathname} items={navItems} />
+              <NavBar
+                activePath={router.pathname}
+                items={getNavItems(data.user)}
+              />
             </div>
           )}
         </>

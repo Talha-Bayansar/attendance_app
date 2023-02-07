@@ -4,4 +4,5 @@ export const mosque = {
   noMosquesFound: "Er zijn geen moskeeën gevonden.",
   noOrganisationsFound: "Er zijn geen organisaties gevonden.",
   newMosque: "Nieuwe moskee",
+  editMosque: "Moskee bewerken",
 };

@@ -50,6 +50,7 @@ export const getOneMosque = protectedProcedure
         },
         include: {
           organisations: true,
+          admins: true,
         },
       });
     } else {
