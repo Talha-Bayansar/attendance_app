@@ -22,7 +22,7 @@ type Props = {
 export const Layout = ({
   title,
   children,
-  hasNavBar = false,
+  hasNavBar = true,
   showAppBar = true,
   requiredActions = [],
   actionButtonIcon,
@@ -33,7 +33,9 @@ export const Layout = ({
   const user = data?.user;
 
   return (
-    <div className="flex min-h-screen w-screen flex-col">
+    <div
+      className={`flex min-h-screen w-screen flex-col ${hasNavBar && "pb-12"}`}
+    >
       {status === "loading" ? (
         <LoadingIndicator isFullScreen />
       ) : status === "unauthenticated" ? (
