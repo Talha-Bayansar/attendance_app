@@ -37,6 +37,7 @@ const CreateMosque = () => {
       <Layout
         title={t.mosque.newMosque}
         requiredActions={[Actions.MOSQUE_CREATE]}
+        showAppBar={false}
       >
         <form
           className="flex flex-grow flex-col justify-between p-4"
