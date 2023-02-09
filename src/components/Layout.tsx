@@ -12,7 +12,7 @@ import { getNavItems } from "@/utils";
 type Props = {
   title?: string;
   children: ReactNode;
-  hasNavBar?: boolean;
+  showNavBar?: boolean;
   showAppBar?: boolean;
   requiredActions?: Actions[];
   actionButtonIcon?: ReactNode;
@@ -22,7 +22,7 @@ type Props = {
 export const Layout = ({
   title,
   children,
-  hasNavBar = true,
+  showNavBar = true,
   showAppBar = true,
   requiredActions = [],
   actionButtonIcon,
@@ -34,7 +34,7 @@ export const Layout = ({
 
   return (
     <div
-      className={`flex min-h-screen w-screen flex-col ${hasNavBar && "pb-12"}`}
+      className={`flex min-h-screen w-screen flex-col ${showNavBar && "pb-12"}`}
     >
       {status === "loading" ? (
         <LoadingIndicator isFullScreen />
@@ -55,7 +55,7 @@ export const Layout = ({
             </AppBar>
           )}
           {children}
-          {hasNavBar && (
+          {showNavBar && (
             <div className="fixed bottom-0 w-full p-4 standalone:bottom-4">
               <NavBar
                 activePath={router.pathname}

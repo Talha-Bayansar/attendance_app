@@ -49,7 +49,7 @@ const EditMosque = () => {
       <Layout
         title={t.mosque.editMosque}
         requiredActions={[Actions.MOSQUE_UPDATE]}
-        showAppBar={false}
+        showNavBar={false}
       >
         {isLoading ? (
           <LoadingIndicator />
