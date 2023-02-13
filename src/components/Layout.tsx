@@ -8,6 +8,7 @@ import { Unauthenticated } from "./Unauthenticated";
 import { type Actions, hasPermission } from "@/auth";
 import Unauthorized from "./Unauthorized";
 import { getNavItems } from "@/utils";
+import { type MenuItem } from "./DropdownButton";
 
 type Props = {
   title?: string;
@@ -15,8 +16,7 @@ type Props = {
   showNavBar?: boolean;
   showAppBar?: boolean;
   requiredActions?: Actions[];
-  actionButtonIcon?: ReactNode;
-  onClickActionButton?: React.MouseEventHandler<HTMLButtonElement>;
+  menuItems?: MenuItem[];
 };
 
 export const Layout = ({
@@ -25,8 +25,7 @@ export const Layout = ({
   showNavBar = true,
   showAppBar = true,
   requiredActions = [],
-  actionButtonIcon,
-  onClickActionButton,
+  menuItems,
 }: Props) => {
   const { data, status } = useSession();
   const router = useRouter();
@@ -46,11 +45,7 @@ export const Layout = ({
       ) : (
         <>
           {showAppBar && (
-            <AppBar
-              actionButtonIcon={actionButtonIcon}
-              onClickActionButton={onClickActionButton}
-              className="sticky top-0"
-            >
+            <AppBar menuItems={menuItems} className="sticky top-0">
               {title}
             </AppBar>
           )}

@@ -6,7 +6,7 @@ import {
   Layout,
   LoadingIndicator,
 } from "@/components";
-import { api, appName, Routes } from "@/utils";
+import { api, appName, getMenuItems, Routes } from "@/utils";
 import Head from "next/head";
 import React, { useState } from "react";
 import { useFormik } from "formik";
@@ -14,7 +14,6 @@ import Link from "next/link";
 import { Actions } from "@/auth";
 import { t } from "@/locales";
 import { useRouter } from "next/router";
-import { MdAdd } from "react-icons/md";
 
 const Mosques = () => {
   const router = useRouter();
@@ -26,6 +25,10 @@ const Mosques = () => {
     onSubmit: (values) => {
       setSearchQuery(values.search);
     },
+  });
+
+  const menuItems = getMenuItems({
+    onAdd: () => router.push(`${Routes.MOSQUES}/create`),
   });
 
   const queryContext = api.useContext();
@@ -57,8 +60,7 @@ const Mosques = () => {
       <Layout
         title={t.mosque.title}
         requiredActions={[Actions.MOSQUE_READ]}
-        actionButtonIcon={<MdAdd size={24} />}
-        onClickActionButton={() => router.push(`${Routes.MOSQUES}/create`)}
+        menuItems={menuItems}
       >
         <main className="flex flex-grow flex-col gap-8 p-4">
           <form className="mt-4" onSubmit={handleSubmit}>

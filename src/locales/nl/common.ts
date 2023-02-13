@@ -22,6 +22,7 @@ export const common = {
     sunday: "Zondag",
   },
   create: "Aanmaken",
+  add: "Toevoegen",
   edit: "Bewerken",
   name: "Naam",
 };

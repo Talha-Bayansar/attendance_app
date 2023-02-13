@@ -8,3 +8,4 @@ export * from "./NavBar";
 export * from "./InputField";
 export * from "./RemoveAction";
 export * from "./DismissibleList";
+export * from "./DropdownButton";

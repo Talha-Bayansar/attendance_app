@@ -22,6 +22,7 @@ export const common = {
     sunday: "Pazar",
   },
   create: "Oluştur",
+  add: "Ekle",
   edit: "Düzenle",
   name: "İsim",
 };
