@@ -17,7 +17,7 @@ type Props = {
 export const DropdownButton = ({ items }: Props) => {
   return (
     <Menu as="div" className="relative">
-      <Menu.Button>
+      <Menu.Button as="div">
         <motion.button
           whileTap={{
             backgroundColor: colors.secondary,
@@ -31,12 +31,13 @@ export const DropdownButton = ({ items }: Props) => {
         {items.map((item) => (
           <Menu.Item key={`menuItem-${item.text}`} as="div">
             {() => (
-              <button
+              <motion.button
+                whileTap={{ backgroundColor: colors.primary }}
                 className="flex items-center gap-2"
                 onClick={item.onClick}
               >
                 {item.icon} {item.text && <span>{item.text}</span>}
-              </button>
+              </motion.button>
             )}
           </Menu.Item>
         ))}

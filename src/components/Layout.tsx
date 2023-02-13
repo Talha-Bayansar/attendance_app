@@ -45,7 +45,7 @@ export const Layout = ({
       ) : (
         <>
           {showAppBar && (
-            <AppBar menuItems={menuItems} className="sticky top-0">
+            <AppBar menuItems={menuItems} className="sticky top-0 z-50">
               {title}
             </AppBar>
           )}

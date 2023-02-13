@@ -1,6 +1,13 @@
 import { Actions } from "@/auth";
-import { Button, EmptyState, Layout, LoadingIndicator } from "@/components";
+import {
+  Button,
+  DismissibleList,
+  EmptyState,
+  Layout,
+  LoadingIndicator,
+} from "@/components";
 import { t } from "@/locales";
+import { organisation } from "@/locales/tr";
 import { api, appName, getMenuItems, Routes } from "@/utils";
 import Head from "next/head";
 import Link from "next/link";
@@ -12,7 +19,7 @@ const MosqueDetails = () => {
   const { id, title } = router.query;
 
   const menuItems = getMenuItems({
-    onAdd: () => console.log("Go to add organisation screen."),
+    onAdd: () => router.push(`${Routes.ORGANISATIONS}/create?mosqueId=${id}`),
     onEdit: () => router.push(`${Routes.MOSQUES}/${id}/edit`),
   });
 
@@ -31,22 +38,27 @@ const MosqueDetails = () => {
         menuItems={menuItems}
         requiredActions={[Actions.MOSQUE_READ]}
       >
-        <main className="flex flex-grow flex-col gap-8 p-4">
+        <main className="flex flex-grow flex-col p-4">
           {isFetching ? (
             <LoadingIndicator />
           ) : data.organisations.length < 1 ? (
             <EmptyState text={t.mosque.noOrganisationsFound} />
           ) : (
-            data.organisations.map((organisation) => (
-              <Link
-                key={organisation.id}
-                href={`${Routes.ORGANISATIONS}/${organisation.id}?title=${organisation.name}`}
-              >
-                <Button className="text-left text-header2">
-                  {organisation.name}
-                </Button>
-              </Link>
-            ))
+            <DismissibleList
+              data={data.organisations}
+              onRemove={() => console.log("Organisation remove.")}
+            >
+              {(organisation) => (
+                <Link
+                  className="w-full"
+                  href={`${Routes.ORGANISATIONS}/${organisation.id}?title=${organisation.name}`}
+                >
+                  <Button className="text-left text-header2">
+                    {organisation.name}
+                  </Button>
+                </Link>
+              )}
+            </DismissibleList>
           )}
         </main>
       </Layout>
