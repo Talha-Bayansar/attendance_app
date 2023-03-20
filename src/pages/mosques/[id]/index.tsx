@@ -67,6 +67,11 @@ const MosqueDetails = () => {
                     )
                   }
                   onDelete={() => selectOrganisation(organisation)}
+                  onEdit={() =>
+                    router.push(
+                      `${Routes.ORGANISATIONS}/${organisation.id}/edit`
+                    )
+                  }
                 />
               ))}
             </List>
