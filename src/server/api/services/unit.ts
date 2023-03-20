@@ -21,6 +21,7 @@ export const getOneUnit = protectedProcedure
           },
           include: {
             categories: true,
+            admins: true,
           },
         });
       },
