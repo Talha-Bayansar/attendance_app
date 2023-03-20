@@ -22,6 +22,7 @@ export const DropdownButton = ({ items }: Props) => {
           whileTap={{
             backgroundColor: colors.secondary,
           }}
+          initial={{ backgroundColor: "rgb(157 200 168 / 0)" }}
           className="rounded-full p-1 text-white hover:bg-secondary"
         >
           <MdMoreVert size={24} />
