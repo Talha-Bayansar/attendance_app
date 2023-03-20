@@ -29,7 +29,8 @@ const OrganisationDetails = () => {
         title={title as string}
         requiredActions={[Actions.ORGANISATION_READ]}
         menuItems={getMenuItems({
-          onAdd: () => router.push(`${Routes.UNITS}/create`),
+          onAdd: () =>
+            router.push(`${Routes.UNITS}/create?organisationId=${id}`),
           onEdit: () => router.push(`${Routes.ORGANISATIONS}/${id}/edit`),
         })}
       >

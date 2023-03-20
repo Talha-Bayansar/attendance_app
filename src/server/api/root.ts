@@ -1,5 +1,10 @@
 import { createTRPCRouter } from "./trpc";
-import { eventRouter, mosqueRouter, organisationRouter } from "./routers";
+import {
+  eventRouter,
+  mosqueRouter,
+  organisationRouter,
+  unitRouter,
+} from "./routers";
 
 /**
  * This is the primary router for your server.
@@ -9,7 +14,7 @@ import { eventRouter, mosqueRouter, organisationRouter } from "./routers";
 export const appRouter = createTRPCRouter({
   mosque: mosqueRouter,
   organisation: organisationRouter,
-  unit: eventRouter,
+  unit: unitRouter,
   category: eventRouter,
   event: eventRouter,
   member: eventRouter,

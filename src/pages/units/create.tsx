@@ -9,17 +9,22 @@ import React from "react";
 import { PuffLoader } from "react-spinners";
 
 const CreateUnit = () => {
-  const mutation = api.organisation.createOrganisation.useMutation();
+  const mutation = api.unit.create.useMutation();
   const router = useRouter();
-  const { mosqueId } = router.query;
+  const { organisationId } = router.query;
 
   const { values, handleChange, handleSubmit } = useFormik({
     initialValues: {
       name: "",
+      admins: [],
     },
     onSubmit: (values) => {
       mutation.mutate(
-        { name: values.name, mosqueId: mosqueId as string },
+        {
+          name: values.name,
+          organisationId: organisationId as string,
+          admins: values.admins ?? [],
+        },
         {
           onSuccess() {
             router.back();
