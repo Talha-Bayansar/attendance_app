@@ -1,23 +1,25 @@
 import {
-  Button,
-  DismissibleList,
   EmptyState,
   InputField,
   Layout,
+  ListItem,
   LoadingIndicator,
+  Modal,
 } from "@/components";
 import { api, appName, getMenuItems, Routes } from "@/utils";
 import Head from "next/head";
 import React, { useState } from "react";
 import { useFormik } from "formik";
-import Link from "next/link";
 import { Actions } from "@/auth";
 import { t } from "@/locales";
 import { useRouter } from "next/router";
+import type { Mosque } from "@prisma/client";
 
 const Mosques = () => {
   const router = useRouter();
   const [searchQuery, setSearchQuery] = useState<string>("");
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [selectedMosque, setSelectedMosque] = useState<Mosque>(null);
   const { values, handleChange, handleSubmit } = useFormik({
     initialValues: {
       search: "",
@@ -26,6 +28,15 @@ const Mosques = () => {
       setSearchQuery(values.search);
     },
   });
+
+  const toggleModal = () => {
+    setIsModalOpen((value) => !value);
+  };
+
+  const selectMosque = (mosque) => {
+    setSelectedMosque(mosque);
+    toggleModal();
+  };
 
   const menuItems = getMenuItems({
     onAdd: () => router.push(`${Routes.MOSQUES}/create`),
@@ -49,6 +60,7 @@ const Mosques = () => {
       },
       (oldData) => oldData.filter((mosque) => mosque.id !== id)
     );
+    toggleModal();
   };
 
   return (
@@ -78,20 +90,32 @@ const Mosques = () => {
             ) : data.length < 1 ? (
               <EmptyState text={t.mosque.noMosquesFound} />
             ) : (
-              <DismissibleList data={data} onRemove={handleRemove}>
-                {(mosque) => (
-                  <Link
-                    className="w-full"
-                    href={`${Routes.MOSQUES}/${mosque.id}?title=${mosque.name}`}
-                  >
-                    <Button className="text-left text-header2">
-                      {mosque.name}
-                    </Button>
-                  </Link>
-                )}
-              </DismissibleList>
+              <div className="flex flex-col gap-4">
+                {data.map((mosque) => (
+                  <ListItem
+                    key={mosque.id}
+                    className="text-left text-header2"
+                    title={mosque.name}
+                    onClick={() =>
+                      router.push(
+                        `${Routes.MOSQUES}/${mosque.id}?title=${mosque.name}`
+                      )
+                    }
+                    onEdit={() =>
+                      router.push(`${Routes.MOSQUES}/${mosque.id}/edit`)
+                    }
+                    onDelete={() => selectMosque(mosque)}
+                  />
+                ))}
+              </div>
             )}
           </div>
+          <Modal
+            isOpen={isModalOpen}
+            onClose={toggleModal}
+            onConfirm={() => handleRemove(selectedMosque?.id)}
+            title={t.modal.removeMosque}
+          />
         </main>
       </Layout>
     </>

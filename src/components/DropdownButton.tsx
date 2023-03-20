@@ -27,13 +27,14 @@ export const DropdownButton = ({ items }: Props) => {
           <MdMoreVert size={24} />
         </motion.button>
       </Menu.Button>
-      <Menu.Items className="absolute top-full right-0 flex flex-col gap-2 rounded-lg bg-secondary p-3 text-white shadow-small">
+      <Menu.Items className="absolute top-full right-0 z-50 flex flex-col gap-2 rounded-lg bg-secondary p-3 text-white shadow-small">
         {items.map((item) => (
           <Menu.Item key={`menuItem-${item.text}`} as="div">
             {() => (
               <motion.button
                 whileTap={{ backgroundColor: colors.primary }}
-                className="flex items-center gap-2"
+                initial={{ backgroundColor: "transparent" }}
+                className="flex w-full items-center gap-2 text-body"
                 onClick={item.onClick}
               >
                 {item.icon} {item.text && <span>{item.text}</span>}

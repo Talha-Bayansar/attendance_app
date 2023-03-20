@@ -24,5 +24,8 @@ export const common = {
   create: "Aanmaken",
   add: "Toevoegen",
   edit: "Bewerken",
+  remove: "Verwijderen",
   name: "Naam",
+  confirm: "Bevestigen",
+  cancel: "Annuleren",
 };

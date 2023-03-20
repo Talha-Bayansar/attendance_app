@@ -7,6 +7,7 @@ module.exports = {
         primary: "#21823C",
         "primary-transparent": "rgba(33, 130, 60, 0.7)",
         secondary: "#9DC8A8",
+        "secondary-transparent": "rgba(157, 200, 168, 0.2)",
       },
       boxShadow: {
         large: "0px 4px 16px 0px rgba(0,0,0,0.1)",

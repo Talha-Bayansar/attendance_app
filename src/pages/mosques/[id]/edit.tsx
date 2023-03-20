@@ -33,7 +33,7 @@ const EditMosque = () => {
         },
         {
           onSuccess() {
-            router.push(`${Routes.MOSQUES}/${id}`);
+            router.push(`${Routes.MOSQUES}`);
           },
         }
       );

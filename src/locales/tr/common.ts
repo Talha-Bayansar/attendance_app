@@ -24,5 +24,8 @@ export const common = {
   create: "Oluştur",
   add: "Ekle",
   edit: "Düzenle",
+  remove: "Sil",
   name: "İsim",
+  confirm: "Onayla",
+  cancel: "İptal",
 };

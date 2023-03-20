@@ -6,6 +6,7 @@ import {
   waitingRoom as waitingRoomTR,
   mosque as mosqueTR,
   organisation as organisationTR,
+  modal as modalTR,
 } from "./tr";
 import {
   common as commonNL,
@@ -14,6 +15,7 @@ import {
   waitingRoom as waitingRoomNL,
   mosque as mosqueNL,
   organisation as organisationNL,
+  modal as modalNL,
 } from "./nl";
 
 export const t = new LocalizedStrings({
@@ -24,6 +26,7 @@ export const t = new LocalizedStrings({
     waitingRoom: waitingRoomTR,
     mosque: mosqueTR,
     organisation: organisationTR,
+    modal: modalTR,
   },
   nl: {
     common: commonNL,
@@ -32,5 +35,6 @@ export const t = new LocalizedStrings({
     waitingRoom: waitingRoomNL,
     mosque: mosqueNL,
     organisation: organisationNL,
+    modal: modalNL,
   },
 });
