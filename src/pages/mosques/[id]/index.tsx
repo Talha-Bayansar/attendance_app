@@ -1,22 +1,34 @@
 import { Actions } from "@/auth";
 import {
-  Button,
-  DismissibleList,
   EmptyState,
   Layout,
+  List,
+  ListItem,
   LoadingIndicator,
+  Modal,
 } from "@/components";
 import { t } from "@/locales";
-import { organisation } from "@/locales/tr";
 import { api, appName, getMenuItems, Routes } from "@/utils";
+import { type Organisation } from "@prisma/client";
 import Head from "next/head";
-import Link from "next/link";
 import { useRouter } from "next/router";
-import React from "react";
+import React, { useState } from "react";
 
 const MosqueDetails = () => {
   const router = useRouter();
   const { id, title } = router.query;
+  const [selectedOrganisation, setSelectedOrganisation] =
+    useState<Organisation>(null);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+
+  const toggleModal = () => {
+    setIsModalOpen((value) => !value);
+  };
+
+  const selectOrganisation = (organisation: Organisation) => {
+    setSelectedOrganisation(organisation);
+    toggleModal();
+  };
 
   const menuItems = getMenuItems({
     onAdd: () => router.push(`${Routes.ORGANISATIONS}/create?mosqueId=${id}`),
@@ -44,22 +56,27 @@ const MosqueDetails = () => {
           ) : data.organisations.length < 1 ? (
             <EmptyState text={t.mosque.noOrganisationsFound} />
           ) : (
-            <DismissibleList
-              data={data.organisations}
-              onRemove={() => console.log("Organisation remove.")}
-            >
-              {(organisation) => (
-                <Link
-                  className="w-full"
-                  href={`${Routes.ORGANISATIONS}/${organisation.id}?title=${organisation.name}`}
-                >
-                  <Button className="text-left text-header2">
-                    {organisation.name}
-                  </Button>
-                </Link>
-              )}
-            </DismissibleList>
+            <List>
+              {data?.organisations?.map((organisation) => (
+                <ListItem
+                  key={organisation.id}
+                  title={organisation.name}
+                  onClick={() =>
+                    router.push(
+                      `${Routes.ORGANISATIONS}/${organisation.id}?title=${organisation.name}`
+                    )
+                  }
+                  onDelete={() => selectOrganisation(organisation)}
+                />
+              ))}
+            </List>
           )}
+          <Modal
+            isOpen={isModalOpen}
+            title={t.modal.removeOrganisation}
+            onClose={toggleModal}
+            onConfirm={() => console.log("Confirm")}
+          />
         </main>
       </Layout>
     </>

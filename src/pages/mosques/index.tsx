@@ -2,6 +2,7 @@ import {
   EmptyState,
   InputField,
   Layout,
+  List,
   ListItem,
   LoadingIndicator,
   Modal,
@@ -90,11 +91,10 @@ const Mosques = () => {
             ) : data.length < 1 ? (
               <EmptyState text={t.mosque.noMosquesFound} />
             ) : (
-              <div className="flex flex-col gap-4">
+              <List>
                 {data.map((mosque) => (
                   <ListItem
                     key={mosque.id}
-                    className="text-left text-header2"
                     title={mosque.name}
                     onClick={() =>
                       router.push(
@@ -107,7 +107,7 @@ const Mosques = () => {
                     onDelete={() => selectMosque(mosque)}
                   />
                 ))}
-              </div>
+              </List>
             )}
           </div>
           <Modal
