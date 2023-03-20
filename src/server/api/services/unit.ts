@@ -81,3 +81,148 @@ export const createUnit = protectedProcedure
       },
     });
   });
+
+export const updateUnit = protectedProcedure
+  .input(
+    z.object({
+      id: z.string(),
+      name: z.string().min(1),
+      admins: z.string().array(),
+    })
+  )
+  .mutation(({ ctx, input }) => {
+    const { user } = ctx.session;
+    permissionHandler({
+      hasPermission: hasPermission(user, Actions.UNIT_READ),
+      successCallback: async () => {
+        if (user.role !== Role.APP_ADMIN) {
+          await ctx.prisma.unit.findFirstOrThrow({
+            where: {
+              AND: [
+                {
+                  id: input.id,
+                },
+                {
+                  OR: [
+                    {
+                      admins: {
+                        some: {
+                          id: {
+                            equals: user.id,
+                          },
+                        },
+                      },
+                    },
+                    {
+                      Organisation: {
+                        OR: [
+                          {
+                            admins: {
+                              some: {
+                                id: {
+                                  equals: user.id,
+                                },
+                              },
+                            },
+                          },
+                          {
+                            Mosque: {
+                              admins: {
+                                some: {
+                                  id: {
+                                    equals: user.id,
+                                  },
+                                },
+                              },
+                            },
+                          },
+                        ],
+                      },
+                    },
+                  ],
+                },
+              ],
+            },
+          });
+        }
+        return ctx.prisma.unit.update({
+          where: {
+            id: input.id,
+          },
+          data: {
+            name: input.name,
+          },
+        });
+      },
+    });
+  });
+
+export const deleteUnit = protectedProcedure
+  .input(
+    z.object({
+      id: z.string(),
+    })
+  )
+  .mutation(({ ctx, input }) => {
+    const { user } = ctx.session;
+    permissionHandler({
+      hasPermission: hasPermission(user, Actions.UNIT_READ),
+      successCallback: async () => {
+        if (user.role !== Role.APP_ADMIN) {
+          await ctx.prisma.unit.findFirstOrThrow({
+            where: {
+              AND: [
+                {
+                  id: input.id,
+                },
+                {
+                  OR: [
+                    {
+                      admins: {
+                        some: {
+                          id: {
+                            equals: user.id,
+                          },
+                        },
+                      },
+                    },
+                    {
+                      Organisation: {
+                        OR: [
+                          {
+                            admins: {
+                              some: {
+                                id: {
+                                  equals: user.id,
+                                },
+                              },
+                            },
+                          },
+                          {
+                            Mosque: {
+                              admins: {
+                                some: {
+                                  id: {
+                                    equals: user.id,
+                                  },
+                                },
+                              },
+                            },
+                          },
+                        ],
+                      },
+                    },
+                  ],
+                },
+              ],
+            },
+          });
+        }
+        return ctx.prisma.unit.delete({
+          where: {
+            id: input.id,
+          },
+        });
+      },
+    });
+  });
