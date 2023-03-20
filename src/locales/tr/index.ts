@@ -6,3 +6,4 @@ export * from "./mosque";
 export * from "./organisation";
 export * from "./modal";
 export * from "./unit";
+export * from "./category";

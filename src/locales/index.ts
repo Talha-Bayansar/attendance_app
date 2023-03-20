@@ -8,6 +8,7 @@ import {
   organisation as organisationTR,
   modal as modalTR,
   unit as unitTR,
+  category as categoryTR,
 } from "./tr";
 import {
   common as commonNL,
@@ -18,6 +19,7 @@ import {
   organisation as organisationNL,
   modal as modalNL,
   unit as unitNL,
+  category as categoryNL,
 } from "./nl";
 
 export const t = new LocalizedStrings({
@@ -30,6 +32,7 @@ export const t = new LocalizedStrings({
     organisation: organisationTR,
     modal: modalTR,
     unit: unitTR,
+    category: categoryTR,
   },
   nl: {
     common: commonNL,
@@ -40,5 +43,6 @@ export const t = new LocalizedStrings({
     organisation: organisationNL,
     modal: modalNL,
     unit: unitNL,
+    category: categoryNL,
   },
 });
