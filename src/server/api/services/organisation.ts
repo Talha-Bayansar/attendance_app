@@ -1,4 +1,5 @@
 import { Actions, hasPermission } from "@/auth";
+import { permissionHandler } from "@/utils";
 import { Role } from "@prisma/client";
 import { TRPCError } from "@trpc/server";
 import { z } from "zod";
@@ -95,22 +96,14 @@ export const updateOrganisation = protectedProcedure
   )
   .mutation(async ({ ctx, input }) => {
     const { user } = ctx.session;
-    if (hasPermission(user, Actions.ORGANISATION_UPDATE)) {
-      if (user.role !== Role.APP_ADMIN) {
-        const organisation = await ctx.prisma.organisation.findFirst({
-          where: {
-            OR: [
-              {
-                admins: {
-                  some: {
-                    id: {
-                      equals: user.id,
-                    },
-                  },
-                },
-              },
-              {
-                Mosque: {
+    permissionHandler({
+      hasPermission: hasPermission(user, Actions.ORGANISATION_UPDATE),
+      successCallback: async () => {
+        if (user.role !== Role.APP_ADMIN) {
+          const organisation = await ctx.prisma.organisation.findFirst({
+            where: {
+              OR: [
+                {
                   admins: {
                     some: {
                       id: {
@@ -119,30 +112,85 @@ export const updateOrganisation = protectedProcedure
                     },
                   },
                 },
-              },
-            ],
+                {
+                  Mosque: {
+                    admins: {
+                      some: {
+                        id: {
+                          equals: user.id,
+                        },
+                      },
+                    },
+                  },
+                },
+              ],
+            },
+          });
+
+          if (!organisation) {
+            throw new TRPCError({
+              code: "UNAUTHORIZED",
+              message: "User has no permission.",
+            });
+          }
+        }
+        return ctx.prisma.organisation.update({
+          where: {
+            id: input.id,
+          },
+          data: {
+            name: input.name,
           },
         });
+      },
+    });
+  });
 
-        if (!organisation) {
-          throw new TRPCError({
-            code: "UNAUTHORIZED",
-            message: "User has no permission.",
+export const deleteOrganisation = protectedProcedure
+  .input(
+    z.object({
+      id: z.string(),
+    })
+  )
+  .mutation(async ({ ctx, input }) => {
+    const { user } = ctx.session;
+    permissionHandler({
+      hasPermission: hasPermission(user, Actions.ORGANISATION_DELETE),
+      successCallback: async () => {
+        if (user.role !== Role.APP_ADMIN) {
+          await ctx.prisma.organisation.findFirstOrThrow({
+            where: {
+              OR: [
+                {
+                  admins: {
+                    some: {
+                      id: {
+                        equals: user.id,
+                      },
+                    },
+                  },
+                },
+                {
+                  Mosque: {
+                    admins: {
+                      some: {
+                        id: {
+                          equals: user.id,
+                        },
+                      },
+                    },
+                  },
+                },
+              ],
+            },
           });
         }
-      }
-      return ctx.prisma.organisation.update({
-        where: {
-          id: input.id,
-        },
-        data: {
-          name: input.name,
-        },
-      });
-    } else {
-      throw new TRPCError({
-        code: "UNAUTHORIZED",
-        message: "User has no permission.",
-      });
-    }
+
+        return ctx.prisma.organisation.delete({
+          where: {
+            id: input.id,
+          },
+        });
+      },
+    });
   });

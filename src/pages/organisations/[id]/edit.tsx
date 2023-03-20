@@ -62,6 +62,7 @@ const EditOrganisation = () => {
                 id="name"
                 label={t.common.name}
                 name="name"
+                isActive={data !== undefined}
                 value={values.name}
                 onChange={handleChange}
                 inputProps={{ required: true, autoComplete: "off" }}

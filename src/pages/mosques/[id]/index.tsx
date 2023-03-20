@@ -20,6 +20,8 @@ const MosqueDetails = () => {
   const [selectedOrganisation, setSelectedOrganisation] =
     useState<Organisation>(null);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const mutation = api.organisation.deleteOne.useMutation();
+  const queryContext = api.useContext();
 
   const toggleModal = () => {
     setIsModalOpen((value) => !value);
@@ -27,6 +29,20 @@ const MosqueDetails = () => {
 
   const selectOrganisation = (organisation: Organisation) => {
     setSelectedOrganisation(organisation);
+    toggleModal();
+  };
+
+  const handleRemove = () => {
+    mutation.mutate({ id: selectedOrganisation?.id });
+    queryContext.mosque.getOneMosque.setData(
+      { id: id as string },
+      (oldData) => ({
+        ...oldData,
+        organisations: oldData.organisations.filter(
+          (organisation) => organisation.id !== selectedOrganisation?.id
+        ),
+      })
+    );
     toggleModal();
   };
 
@@ -80,7 +96,7 @@ const MosqueDetails = () => {
             isOpen={isModalOpen}
             title={t.modal.removeOrganisation}
             onClose={toggleModal}
-            onConfirm={() => console.log("Confirm")}
+            onConfirm={handleRemove}
           />
         </main>
       </Layout>
