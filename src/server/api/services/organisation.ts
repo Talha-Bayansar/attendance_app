@@ -96,7 +96,7 @@ export const updateOrganisation = protectedProcedure
   )
   .mutation(async ({ ctx, input }) => {
     const { user } = ctx.session;
-    permissionHandler({
+    return permissionHandler({
       hasPermission: hasPermission(user, Actions.ORGANISATION_UPDATE),
       successCallback: async () => {
         if (user.role !== Role.APP_ADMIN) {
@@ -154,7 +154,7 @@ export const deleteOrganisation = protectedProcedure
   )
   .mutation(async ({ ctx, input }) => {
     const { user } = ctx.session;
-    permissionHandler({
+    return permissionHandler({
       hasPermission: hasPermission(user, Actions.ORGANISATION_DELETE),
       successCallback: async () => {
         if (user.role !== Role.APP_ADMIN) {

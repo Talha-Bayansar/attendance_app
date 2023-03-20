@@ -12,12 +12,15 @@ export const getOneUnit = protectedProcedure
   )
   .query(({ ctx, input }) => {
     const { user } = ctx.session;
-    permissionHandler({
+    return permissionHandler({
       hasPermission: hasPermission(user, Actions.UNIT_READ),
       successCallback: () => {
         return ctx.prisma.unit.findFirst({
           where: {
             id: input.id,
+          },
+          include: {
+            categories: true,
           },
         });
       },
@@ -34,7 +37,7 @@ export const createUnit = protectedProcedure
   )
   .mutation(({ ctx, input }) => {
     const { user } = ctx.session;
-    permissionHandler({
+    return permissionHandler({
       hasPermission: hasPermission(user, Actions.UNIT_READ),
       successCallback: async () => {
         if (user.role !== Role.APP_ADMIN) {
@@ -92,7 +95,7 @@ export const updateUnit = protectedProcedure
   )
   .mutation(({ ctx, input }) => {
     const { user } = ctx.session;
-    permissionHandler({
+    return permissionHandler({
       hasPermission: hasPermission(user, Actions.UNIT_READ),
       successCallback: async () => {
         if (user.role !== Role.APP_ADMIN) {
@@ -165,7 +168,7 @@ export const deleteUnit = protectedProcedure
   )
   .mutation(({ ctx, input }) => {
     const { user } = ctx.session;
-    permissionHandler({
+    return permissionHandler({
       hasPermission: hasPermission(user, Actions.UNIT_READ),
       successCallback: async () => {
         if (user.role !== Role.APP_ADMIN) {

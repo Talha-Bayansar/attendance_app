@@ -1,18 +1,18 @@
 import { TRPCError } from "@trpc/server";
 
-type PermissionHandlerProps = {
+type PermissionHandlerProps<T> = {
   hasPermission: boolean;
-  successCallback: () => any;
+  successCallback: () => T;
   errorCallback?: () => any;
 };
 
-export const permissionHandler = ({
+export const permissionHandler = <T>({
   hasPermission,
   successCallback,
   errorCallback,
-}: PermissionHandlerProps) => {
+}: PermissionHandlerProps<T>) => {
   if (hasPermission) {
-    successCallback();
+    return successCallback();
   } else {
     if (errorCallback) {
       errorCallback();
