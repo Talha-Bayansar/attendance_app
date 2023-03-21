@@ -1,4 +1,5 @@
 import { Actions, hasPermission } from "@/auth";
+import { Role } from "@prisma/client";
 import { TRPCError } from "@trpc/server";
 import { z } from "zod";
 import { protectedProcedure } from "../trpc";
@@ -14,14 +15,25 @@ export const getAll = protectedProcedure
     if (hasPermission(user, Actions.EVENT_READ)) {
       return ctx.prisma.user.findMany({
         where: {
-          OR: [
+          AND: [
             {
-              name: {
-                contains: input.query,
+              role: {
+                not: {
+                  equals: Role.APP_ADMIN,
+                },
               },
-              email: {
-                contains: input.query,
-              },
+            },
+            {
+              OR: [
+                {
+                  name: {
+                    contains: input.query,
+                  },
+                  email: {
+                    contains: input.query,
+                  },
+                },
+              ],
             },
           ],
         },

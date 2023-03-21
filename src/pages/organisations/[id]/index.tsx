@@ -80,7 +80,7 @@ const OrganisationDetails = () => {
               ))}
             </List>
           ) : (
-            <EmptyState text={t.unit.noUnitsFound} />
+            <EmptyState text={t.category.noCategoriesFound} />
           )}
           <Modal
             isOpen={isOpenModal}

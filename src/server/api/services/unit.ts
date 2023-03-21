@@ -149,12 +149,22 @@ export const updateUnit = protectedProcedure
             },
           });
         }
+        const admins = await ctx.prisma.user.findMany({
+          where: {
+            id: {
+              in: input.admins,
+            },
+          },
+        });
         return ctx.prisma.unit.update({
           where: {
             id: input.id,
           },
           data: {
             name: input.name,
+            admins: {
+              set: admins,
+            },
           },
         });
       },

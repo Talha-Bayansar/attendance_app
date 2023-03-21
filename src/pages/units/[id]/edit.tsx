@@ -1,11 +1,18 @@
 import { Actions } from "@/auth";
-import { Layout, LoadingIndicator, InputField, Button } from "@/components";
+import {
+  Layout,
+  LoadingIndicator,
+  InputField,
+  Button,
+  SelectField,
+} from "@/components";
 import { t } from "@/locales";
 import { api, appName } from "@/utils";
+import { type User } from "@prisma/client";
 import { useFormik } from "formik";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import React from "react";
+import React, { useState } from "react";
 import { PuffLoader } from "react-spinners";
 
 const EditUnit = () => {
@@ -16,10 +23,14 @@ const EditUnit = () => {
     id: id as string,
   });
 
+  const [selectedAdmins, setSelectedAdmins] = useState<User[]>(
+    data?.admins ?? []
+  );
+
   const { values, handleChange, handleSubmit } = useFormik({
     initialValues: {
+      query: "",
       name: data?.name ?? "",
-      admins: data?.admins ?? [],
     },
     enableReinitialize: true,
     onSubmit: (values) => {
@@ -27,7 +38,7 @@ const EditUnit = () => {
         {
           id: id as string,
           name: values.name ?? "",
-          admins: values.admins.map((admin) => admin.id) ?? [],
+          admins: selectedAdmins.map((admin) => admin.id) ?? [],
         },
         {
           onSuccess() {
@@ -36,6 +47,10 @@ const EditUnit = () => {
         }
       );
     },
+  });
+
+  const { data: users } = api.user.getAll.useQuery({
+    query: values.query,
   });
 
   return (
@@ -66,6 +81,15 @@ const EditUnit = () => {
                 value={values.name}
                 onChange={handleChange}
                 inputProps={{ required: true, autoComplete: "off" }}
+              />
+              <SelectField
+                label="Admins"
+                name="query"
+                query={values.query}
+                data={users ?? []}
+                selectedData={selectedAdmins ?? []}
+                onChangeData={(element) => setSelectedAdmins(element)}
+                onChangeQuery={handleChange}
               />
             </div>
             <Button
