@@ -149,6 +149,16 @@ export const updateUnit = protectedProcedure
             },
           });
         }
+        await ctx.prisma.user.updateMany({
+          where: {
+            id: {
+              in: input.admins,
+            },
+          },
+          data: {
+            role: Role.UNIT_ADMIN,
+          },
+        });
         const admins = await ctx.prisma.user.findMany({
           where: {
             id: {
